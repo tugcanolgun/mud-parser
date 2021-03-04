@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://some-url/some-movie",
+    "imdb_code": "tt00000001",
+    "title": "Some movie",
+    "language": "en",
+    "cover_image": "https://some-url/some-movie-cover.jpg",
+    "trailers":
+      {
+        "url": "https://some-url/some-movie-url",
+        "quality": "720p",
+        "type": "bluray",
+        "seeds": 137,
+        "peers": 18,
+        "size": "159.39 MB",
+        "date_uploaded": "2021-01-21 05:21:37",
+        "date_uploaded_unix": 1611202897
+      }
+  },
+  {
+    "url": "https://some-url/other-movie",
+    "imdb_code": "tt00000002",
+    "title": "Other movie",
+    "language": "en",
+    "cover_image": "https://some-url/other-movie-cover.jpg",
+    "trailers":
+    {
+      "url": "https://some-url/other-movie-url",
+      "quality": "1080p",
+      "type": "bluray",
+      "seeds": 137,
+      "peers": 18,
+      "size": "152.3 MB",
+      "date_uploaded": "2021-01-21 05:21:37",
+      "date_uploaded_unix": 1611202897
+    }
+  }
+]

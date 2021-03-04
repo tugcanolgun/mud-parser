@@ -1,0 +1,92 @@
+{
+  "status": "ok",
+  "status_message": "Query was successful",
+  "data": {
+    "movie_count": 999,
+    "limit": 20,
+    "page_number": 1,
+    "movies": [
+    {
+      "id": 2594623,
+        "url": "https://some-url/some-movie",
+        "imdb_code": "tt00000001",
+        "title": "Some movie",
+        "title_english": "Some movie",
+        "title_long": "Some movie",
+        "slug": "some-movie",
+        "year": 2021,
+        "rating": 6,
+        "genres": [
+        "Action",
+        "Adventure",
+        "Animation",
+        "Crime"
+        ],
+        "synopsis": "Something happens in the movie",
+        "language": "en",
+        "background_image": "https://some-url/some-movie-background.jpg",
+        "small_cover_image": "https://some-url/some-movie-cover.jpg",
+        "state": "ok",
+        "trailers": [
+        {
+            "url": "https://some-url/some-movie-url",
+            "quality": "720p",
+            "type": "bluray",
+            "seeds": 137,
+            "peers": 18,
+            "size": "159.39 MB",
+            "date_uploaded": "2021-01-21 05:21:37",
+            "date_uploaded_unix": 1611202897
+        }
+        ],
+        "date_uploaded": "2021-01-12 01:40:20",
+        "date_uploaded_unix": 1610412020
+    },
+    {
+        "id": 2594623,
+        "url": "https://some-url/other-movie",
+        "imdb_code": "tt00000002",
+        "title": "Other movie",
+        "title_english": "Other movie",
+        "title_long": "Other movie",
+        "slug": "other-movie",
+        "year": 2020,
+        "rating": 6,
+        "genres": [
+          "Action",
+          "Drama"
+        ],
+        "synopsis": "Something happens in this other movie",
+        "language": "en",
+        "background_image": "https://some-url/other-movie-background.jpg",
+        "small_cover_image": "https://some-url/other-movie-cover.jpg",
+        "state": "ok",
+        "trailers": [
+        {
+            "url": "https://some-url/other-movie-url",
+            "quality": "1080p",
+            "type": "bluray",
+            "seeds": 137,
+            "peers": 18,
+            "size": "152.3 MB",
+            "date_uploaded": "2021-01-21 05:21:37",
+            "date_uploaded_unix": 1611202897
+        },
+        {
+            "url": "https://some-url/other-movie-url-2",
+            "quality": "1080p",
+            "type": "web",
+            "seeds": 37,
+            "peers": 8,
+            "size": "142.0 MB",
+            "date_uploaded": "2021-01-21 05:21:37",
+            "date_uploaded_unix": 1611202897
+        }
+        ],
+        "date_uploaded": "2021-01-12 01:40:20",
+        "date_uploaded_unix": 1610412020
+    }
+    ]
+  }
+}
+
