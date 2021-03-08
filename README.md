@@ -18,7 +18,19 @@ or
 
 ## Usage
 
-**Schema:**
+**Import**
+
+`import MudParser from 'mud-parser';`
+
+or
+
+`const MudParser = require('mud-parser');`
+
+**Usage**
+
+`const result = MudParser(schema, response.data);`
+
+**Schema example:**
 
 ```js
 {
@@ -27,20 +39,20 @@ or
     parsers: [
       { key: "title", value: "data.movies.0.title" },
       { key: "imdbId", value: "data.movies.0.imdb_code" },
-      { key: "realName", value: "data.movies.0.cast.0.full_name" },
-      { key: "characterName", value: "data.movies.0.cast.0.character" },
+      { key: "realName", value: "data.movies.0.cast|castMembers.0.full_name" },
+      { key: "characterName", value: "data.movies.0.cast|castMembers.0.character" },
     ],
 }
 ```
 
-**Outcome:**
+**Output:**
 
 ```js
 [
   {
     title: '12 Angry Men',
     imdbId: 'tt0050083',
-    cast: [
+    castMembers: [
       {
         realName: 'Martin Balsam',
         characterName: 'Juror 1'
@@ -55,7 +67,7 @@ or
   {
     title: 'Limelight',
     imdbId: 'tt0044837',
-    cast: [
+    castMembers: [
       {
         realName: 'Charles Chaplin',
         characterName: 'Calvero'

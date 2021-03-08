@@ -7,21 +7,21 @@ const currencyApi = require("./json/currencyApi.json");
 const MudParser = require("../src/MudParser");
 
 describe("Test MudParser with movie api", () => {
-  const schema = {
-    version: 1,
-    parsers: [
-      { key: "title", value: "data.movies.0.title" },
-      { key: "imdbId", value: "data.movies.0.imdb_code" },
-      { key: "image", value: "data.movies.0.small_cover_image" },
-      { key: "source", value: "data.movies.0.trailers.0.url" },
-      { key: "quality", value: "data.movies.0.trailers.0.quality" },
-      { key: "seeds", value: "data.movies.0.trailers.0.seeds" },
-      { key: "size", value: "data.movies.0.trailers.0.size" },
-      { key: "type", value: "data.movies.0.trailers.0.type" },
-    ],
-  };
-
   it("test parsing movieApi", () => {
+    const schema = {
+      version: 1,
+      parsers: [
+        { key: "title", value: "data.movies.0.title" },
+        { key: "imdbId", value: "data.movies.0.imdb_code" },
+        { key: "image", value: "data.movies.0.small_cover_image" },
+        { key: "source", value: "data.movies.0.trailers.0.url" },
+        { key: "quality", value: "data.movies.0.trailers.0.quality" },
+        { key: "seeds", value: "data.movies.0.trailers.0.seeds" },
+        { key: "size", value: "data.movies.0.trailers.0.size" },
+        { key: "type", value: "data.movies.0.trailers.0.type" },
+      ],
+    };
+
     const result = MudParser(schema, movieApi);
     assert(result.length === 2, result.length);
     for (let i = 0; i < 2; i++) {
@@ -44,6 +44,42 @@ describe("Test MudParser with movie api", () => {
       });
     }
   });
+
+  it("test parsing movieApi with renaming middle object", () => {
+    const schema = {
+      version: 1,
+      parsers: [
+        { key: "title", value: "data.movies.0.title" },
+        { key: "imdbId", value: "data.movies.0.imdb_code" },
+        { key: "image", value: "data.movies.0.small_cover_image" },
+        { key: "source", value: "data.movies.0.trailers|sources.0.url" },
+        { key: "quality", value: "data.movies.0.trailers|sources.0.quality" },
+        { key: "seeds", value: "data.movies.0.trailers|sources.0.seeds" },
+        { key: "size", value: "data.movies.0.trailers|sources.0.size" },
+        { key: "type", value: "data.movies.0.trailers|sources.0.type" },
+      ],
+    };
+
+    const result = MudParser(schema, movieApi);
+    assert(result.length === 2, result.length);
+    for (let i = 0; i < 2; i++) {
+      assert(result[i].title === movieApi.data.movies[i].title);
+      assert(result[i].imdbId === movieApi.data.movies[i].imdb_code);
+      assert(result[i].image === movieApi.data.movies[i].small_cover_image);
+      assert(
+        result[i].sources.length === movieApi.data.movies[i].trailers.length,
+      );
+      result[i].sources.map((source, tIndex) => {
+        assert(source.source === movieApi.data.movies[i].trailers[tIndex].url);
+        assert(
+          source.quality === movieApi.data.movies[i].trailers[tIndex].quality,
+        );
+        assert(source.seeds === movieApi.data.movies[i].trailers[tIndex].seeds);
+        assert(source.size === movieApi.data.movies[i].trailers[tIndex].size);
+        assert(source.type === movieApi.data.movies[i].trailers[tIndex].type);
+      });
+    }
+  });
 });
 
 describe("Test MudParser with movie api 2", () => {
@@ -63,7 +99,6 @@ describe("Test MudParser with movie api 2", () => {
 
   it("test parsing movieApi", () => {
     const result = MudParser(schema, movieApi2);
-    console.log(result);
     assert(result.length === 2, result.length);
     for (let i = 0; i < 2; i++) {
       assert(result[i].title === movieApi2[i].title);

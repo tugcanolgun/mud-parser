@@ -1,9 +1,12 @@
 const Iterator = require("./Iterator");
 const { getFromObject, createObject } = require("./ObjectUtils");
 
+let replace = {};
+
 const MudParser = (schema, data) => {
   if (data === undefined) return null;
   checkSchema(schema);
+  replace = {};
   let hierarchy = ResultHierarchy(schema.parsers, data);
   let result = [];
   Object.keys(hierarchy).map((h) => result.push(hierarchy[h]));
@@ -53,18 +56,45 @@ const getIndexes = (str) => {
     whileStop++;
     if (whileStop >= 15) break;
 
-    indexes.push(match.index);
+    indexes.push(match);
   }
   return indexes;
+};
+
+const saveReplace = (key, replaceValue, index) => {
+  replace[key] = { replace: replaceValue, index };
+};
+
+const getReplace = (str, index) => {
+  for (let keyName in replace) {
+    if (str.includes(keyName) && index === replace[keyName].index) {
+      return str.replace(keyName, replace[keyName].replace);
+    }
+  }
+
+  return str;
+};
+
+const checkAndGetReplace = (str, index) => {
+  const re = /\|/;
+  let match = re.exec(str);
+  if (match !== null) {
+    let main = str.substring(0, match.index);
+    let replace = str.substring(match.index + 1);
+    saveReplace(main, replace, index);
+    return main;
+  }
+  return str;
 };
 
 const getNonArrays = (str) => {
   const indexes = getIndexes(str);
   let res = [];
   let counter = 0;
-  indexes.map((index) => {
-    res.push(str.substring(counter, index));
-    counter = index + 3;
+  indexes.map((match, index) => {
+    let path = str.substring(counter, match.index);
+    res.push(checkAndGetReplace(path, index));
+    counter = match.index + match[0].length;
   });
   let last = str.substring(counter);
   if (last !== "") res.push(last);
@@ -123,20 +153,20 @@ const ResultHierarchy = (schema, data) => {
   let result = {};
   let _ = schema.map((sch) => {
     const schemaRes = getSchema(sch, data);
-    schemaRes.map((sch) => {
-      let objStringArr = [];
-      let indexes = getLastIndexes(sch.path);
+    schemaRes.map((schR) => {
+      let objStringArrReplaced = [];
+      let indexes = getLastIndexes(schR.path);
       let initIndex = 0;
-      indexes.map((index) => {
-        let keyString = sch.path.substring(initIndex, index);
+      indexes.map((index, ii) => {
+        let keyString = schR.path.substring(initIndex, index);
         keyString = keyString.replaceAll(".", "");
         keyString += "__";
-        objStringArr.push(keyString);
+        objStringArrReplaced.push(getReplace(keyString, ii));
         initIndex = index;
       });
-      createObject(result, objStringArr.join("."));
-      let lastObj = getFromObject(objStringArr.join("."), result);
-      lastObj[sch.key] = sch.value;
+      createObject(result, objStringArrReplaced.join("."));
+      let lastObj = getFromObject(objStringArrReplaced.join("."), result);
+      lastObj[schR.key] = schR.value;
     });
   });
   return result;
