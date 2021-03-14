@@ -1,9 +1,10 @@
 {
   "name": "mud-parser",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Unify JSON with schemas.",
   "files": [
-    "index.js"
+    "index.js",
+    "src/*"
   ],
   "scripts": {
     "test": "mocha test/",
