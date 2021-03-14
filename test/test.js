@@ -4,7 +4,7 @@ var expect = require("expect.js");
 const movieApi = require("./json/movieApi.json");
 const movieApi2 = require("./json/movieApi2.json");
 const currencyApi = require("./json/currencyApi.json");
-const MudParser = require("../src/MudParser");
+const { MudParser } = require("../src/MudParser");
 
 describe("Test MudParser with movie api", () => {
   it("test parsing movieApi", () => {
