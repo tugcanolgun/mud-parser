@@ -1,3 +1,3 @@
-const MudParser = require("./src/MudParser");
+"use strict";
 
-module.exports = MudParser;
+module.exports = require("./src/MudParser");

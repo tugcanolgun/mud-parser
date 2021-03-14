@@ -193,4 +193,5 @@ const cleanResults = (object) => {
   }
 };
 
-module.exports = MudParser;
+exports.MudParser = MudParser;
+exports.checkMudSchema = checkSchema;

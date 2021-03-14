@@ -20,11 +20,9 @@ or
 
 **Import**
 
-`import MudParser from 'mud-parser';`
+`import { MudParser } from 'mud-parser';`
 
-or
-
-`const MudParser = require('mud-parser');`
+`checkMudSchema` is also available.
 
 **Usage**
 

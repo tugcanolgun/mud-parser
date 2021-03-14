@@ -15,7 +15,7 @@ const Iterator = (arr) => {
   let internalCounter = 0;
   let itCounter = Array.from(
     { length: arr.length - 1 + isLastArr + isFirstArr },
-    (_, i) => 0,
+    (_, i) => 0
   );
   let itIndex = itCounter.length - 1;
   let skipCalled = -1;
