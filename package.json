@@ -1,6 +1,6 @@
 {
   "name": "mud-parser",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Unify JSON with schemas.",
   "files": [
     "index.js",
@@ -9,8 +9,8 @@
   "scripts": {
     "test": "mocha test/",
     "lint": "prettier --check 'src/**/*.js'",
-    "fix": "prettier --write 'src/**/*.js'"
-
+    "fix": "prettier --write 'src/**/*.js'",
+    "preversion": "npm test"
   },
   "repository": {
     "type": "git",

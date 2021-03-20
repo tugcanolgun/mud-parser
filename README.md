@@ -1,5 +1,8 @@
 # mud-parser
 
+
+[![npm](https://img.shields.io/npm/v/mud-parser?style=for-the-badge)](https://www.npmjs.com/package/mud-parser) [![npm](https://img.shields.io/npm/dw/mud-parser?style=for-the-badge)](https://www.npmjs.com/package/mud-parser) ![NPM](https://img.shields.io/npm/l/mud-parser?style=for-the-badge)
+
 > CAUTION: This package is currently experimental.
 
 ---
@@ -191,59 +194,4 @@ Current result:
 ];
 ```
 
-2. An object cannot be forced to be assigned in an array.
-
-```js
-{
-  version: 1,
-  url: 'https://some-url',
-  parsers: [
-    {key: 'movies', value: 'movie'}
-  ]
-}
-```
-
-```json
-{
-  "movie": {
-    "title": "12 Angry Men",
-    "year": 1957
-  }
-}
-```
-
-Current result:
-
-```js
-{
-  movies: {
-    title: "12 Angry Men",
-    year: 1957
-  }
-}
-```
-
-Optional expected schema:
-
-```js
-{
-  version: 1,
-  url: 'https://some-url',
-  parsers: [
-    {key: 'movies', value: 'movie.[0]'}
-  ]
-}
-```
-
-Optional expected result:
-
-```js
-{
-  movies: [
-    {
-      title: "12 Angry Men",
-      year: 1957,
-    },
-  ];
-}
-```
+2. Value conversion is not supported. Currently there is no way to convert values into different types, including string -> number. A more challanging change Object -> Array or vice versa is also an important part that is missing.
